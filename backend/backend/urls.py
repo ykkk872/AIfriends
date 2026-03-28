@@ -27,10 +27,10 @@ urlpatterns = [
 # 仅限开发阶段使用。生产阶段需要在nginx里配置。
 if settings.DEBUG:
     urlpatterns += static(
-        '/assets/',
-        document_root=settings.BASE_DIR / 'static/frontend/assets'
+        '/assets/', # 将assets请求重定向到static/frontend/assets目录, 这个配置就是适配Vite打包后的前端静态文件目录, 这样就可以在Django中访问前端静态文件
+        document_root=settings.BASE_DIR / 'static/frontend/assets' # 静态文件目录
     )
     urlpatterns += static(
-        '/media/',
-        document_root=settings.MEDIA_ROOT
+        '/media/', # 将media请求重定向到MEDIA_ROOT目录, 这个配置就是适配Django的媒体文件目录, 这样就可以在Django中访问媒体文件
+        document_root=settings.MEDIA_ROOT # 媒体文件目录
     )
