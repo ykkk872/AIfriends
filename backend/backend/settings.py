@@ -150,10 +150,10 @@ REST_FRAMEWORK = {
 
 # SimpleJWT配置
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-    'ROTATE_REFRESH_TOKENS': True,
-    'BLACKLIST_AFTER_ROTATION': True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=2), # 设置token过期时间
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7), # 设置refresh token过期时间
+    'ROTATE_REFRESH_TOKENS': True, # 设置是否旋转refresh token
+    'BLACKLIST_AFTER_ROTATION': True, # 设置是否在旋转refresh token后将旧的token加入黑名单
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
