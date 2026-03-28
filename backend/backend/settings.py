@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-)coffwitit1_w^u3^wh1*81*k!5vr8vzngx_%cp(_-@vkjgbfx'
 
+# 设置DEBUG为True，这样就可以在开发阶段使用静态文件和媒体文件, 线上设置为false，需要配置nginx来访问静态文件和媒体文件
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
