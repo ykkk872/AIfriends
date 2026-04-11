@@ -153,7 +153,7 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=2), # 设置token过期时间
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7), # 设置refresh token过期时间
-    'ROTATE_REFRESH_TOKENS': True, # 设置是否旋转refresh token
+    'ROTATE_REFRESH_TOKENS': True, # 设置是否旋转refresh token，即每次登陆自动将ACCESS_TOKEN_LIFETIME延长到从当前开始的7天
     'BLACKLIST_AFTER_ROTATION': True, # 设置是否在旋转refresh token后将旧的token加入黑名单
     'AUTH_HEADER_TYPES': ('Bearer',),
 }

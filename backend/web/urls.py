@@ -1,13 +1,12 @@
 from django.urls import path
-from rest_framework_simplejwt.views import (
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-
-from web.views.index import index
+from web.views.user.account.login import LoginView
+from web.views.user.account.logout import logoutView
+from web.views.user.account.register import RegisterView
+from web.views.user.account.refresh_token import refreshTokenView
 
 urlpatterns = [
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('', index), # index不用写成index()，因为index是函数，不是视图类
+    path('api/user/account/login/', LoginView.as_view()),
+    path('api/user/account/logout/', logoutView.as_view()),
+    path('api/user/account/register/', RegisterView.as_view()),
+    path('api/user/account/refresh_token/', refreshTokenView.as_view()),
 ]
