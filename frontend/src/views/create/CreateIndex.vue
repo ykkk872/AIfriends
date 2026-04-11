@@ -4,7 +4,7 @@ import CreateCharacter from "@/views/create/character/CreateCharacter.vue";
 </script>
 
 <template>
-  <CreateCharacter />
+  创建页面
 </template>
 
 <style scoped>
