@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
-    "axios": "^1.14.0",
     "croppie": "^2.6.5",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.2.2",
