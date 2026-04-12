@@ -12,7 +12,7 @@ def photo_upload_to(instance, filename):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE) # user 是 Django 自带的用户模型
-    photo = models.ImageField(default='user/phoths/default.png', upload_to=photo_upload_to) # 用户头像，用户上传的头像都在media目录下，第一个参数的路径是从media目录开始的相对路径，第二个参数是上传到哪个目录，这里上传到user/photos目录，并调用photo_upload_to函数生成唯一的文件名
+    photo = models.ImageField(default='user/photos/default.png', upload_to=photo_upload_to) # 用户头像，用户上传的头像都在media目录下，第一个参数的路径是从media目录开始的相对路径，第二个参数是上传到哪个目录，这里上传到user/photos目录，并调用photo_upload_to函数生成唯一的文件名
     profile = models.TextField(default='谢谢你的关注', max_length=500) # 用户简介, 最大长度对TextField没用，因为TextField是字符串类型，没有长度限制，最大长度需要后面手动在代码里判读
     created_time = models.DateTimeField(default=now) # 创建时间
     updated_time = models.DateTimeField(default=now) # 更新时间
