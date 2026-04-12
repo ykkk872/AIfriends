@@ -7,6 +7,10 @@ import UserLogoutIcon from './icons/UserLogoutIcon.vue';
 import UserProfileIcon from './icons/UserProfileIcon.vue';
 import SearchIcon from './icons/SearchIcon.vue';
 import router from '@/router';
+import { useUserStore } from '@/stores/user.js';
+import UserMenu from './UserMenu.vue';
+const user = useUserStore() // 获取在user.js中用pinia定义的全局用户状态
+
 </script>
 
 <template>
@@ -38,9 +42,14 @@ import router from '@/router';
             </div>
         </div>
         <div class="navbar-end">
-            <router-link :to="{name: 'user-account-login-index'}" active-class="btn-active" class="btn btn-ghost text-lg">
+            <router-link v-if="user.isLogin" :to="{name: 'create-index'}" active-class="btn-active" class="btn btn-ghost text-base mr-6"> <!-- 这里判断用户是否登录，登录才显示创作按钮 -->
+                <CreateIcon/>
+                创作
+            </router-link>
+            <router-link v-if="!user.isLogin" :to="{name: 'user-account-login-index'}" active-class="btn-active" class="btn btn-ghost text-lg"> <!-- 这里判断用户是否登录，没登录才显示登陆按钮 -->
                 登陆
             </router-link>
+            <UserMenu v-else />
         </div>
         </nav>
         <!-- slot显示App.vue中两个NavBar中的内容 -->
