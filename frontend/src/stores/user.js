@@ -1,54 +1,54 @@
-import { computed, ref } from 'vue'
-import { defineStore } from 'pinia'
+import {defineStore} from "pinia";
+import {ref} from "vue";
 
-const STORAGE_KEY = 'access'
-
+// 实现全局状态
 export const useUserStore = defineStore('user', () => {
-  const accessToken = ref(
-    typeof localStorage !== 'undefined' ? localStorage.getItem(STORAGE_KEY) || '' : '',
-  )
-  const id = ref(null)
-  const username = ref('')
-  const profile = ref('')
-  const photo = ref('')
+    const id = ref(0)
+    const username = ref('')
+    const photo = ref('')
+    const profile = ref('')
+    const accessToken = ref('')
+    const hasPulledUserInfo = ref(false)
 
-  const isLoggedIn = computed(() => Boolean(accessToken.value))
-
-  function setAccessToken(token) {
-    accessToken.value = token || ''
-    if (typeof localStorage !== 'undefined') {
-      if (token) localStorage.setItem(STORAGE_KEY, token)
-      else localStorage.removeItem(STORAGE_KEY)
+    function isLogin() { // 判断是否登陆
+        return !!accessToken.value  // 必须带value!!!!!!!!!
     }
-  }
 
-  function setUserInfo(data) {
-    if (!data || typeof data !== 'object') return
-    if (data.access) setAccessToken(data.access)
-    if (data.user_id != null) id.value = data.user_id
-    else if (data.id != null) id.value = data.id
-    if (data.username != null) username.value = data.username
-    if (data.profile != null) profile.value = data.profile
-    if (data.photo != null) photo.value = data.photo
-  }
+    function setAccessToken(token) {
+        accessToken.value = token
+    }
 
-  function logout() {
-    setAccessToken('')
-    id.value = null
-    username.value = ''
-    profile.value = ''
-    photo.value = ''
-  }
+    // data和backend/web/views/user/account/login.py中返回的Response中的data一致
+    function setUserInfo(data) {
+        id.value = data.user_id
+        username.value = data.username
+        photo.value = data.photo
+        profile.value = data.profile
+    }
 
-  return {
-    accessToken,
-    id,
-    username,
-    profile,
-    photo,
-    isLoggedIn,
-    setAccessToken,
-    setUserInfo,
-    logout,
-  }
+    function logout() {
+        id.value = 0
+        username.value = ''
+        photo.value = ''
+        profile.value = ''
+        accessToken.value = ''
+    }
+
+    function setHasPulledUserInfo(newStatus) {
+        hasPulledUserInfo.value = newStatus
+    }
+
+    return {
+        id,
+        username,
+        photo,
+        profile,
+        accessToken,  // 千万不要忘了！！！！
+        isLogin,
+        setAccessToken,
+        setUserInfo,
+        logout,
+        hasPulledUserInfo,
+        setHasPulledUserInfo,
+    }
 })
