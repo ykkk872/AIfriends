@@ -4,10 +4,27 @@ import UserSpaceIndex from './icons/UserSpaceIndex.vue';
 import UserProfileIcon from './icons/UserProfileIcon.vue';
 import UserLogoutIcon from './icons/UserLogoutIcon.vue';
 const user = useUserStore() // 获取在user.js中用pinia定义的全局用户状态
+import api from "@/js/http/api.js"
+import { useRouter } from 'vue-router';
+const router = useRouter
 
 function closeMenu() { // 
     const element = document.activeElement
     if (element && element instanceof HTMLElement) element.blur()
+}
+
+async function handleLogout() {
+    try {
+        const result = await api.post('/api/user/account/logout/')
+        if (result.data.result === 'success') {
+            user.logout()
+        }
+        await router.push({
+            name: 'homepage-index'
+        })
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 </script>
@@ -40,7 +57,7 @@ function closeMenu() { //
                     编辑资料
                 </router-link>
                 <li class="menu-title p-0"><hr class="my-1 border-base-300"></li>
-                <a @click="closeMenu" class="text-base font-bold py-3">
+                <a @click="handleLogout" class="text-base font-bold py-3">
                     <UserLogoutIcon/>
                     退出登录
                 </a>
