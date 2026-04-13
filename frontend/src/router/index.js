@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user.js'
 import HomepageIndex from "@/views/homepage/HomepageIndex.vue";
 import FriendIndex from "@/views/friend/FriendIndex.vue";
 import CreateIndex from "@/views/create/CreateIndex.vue";
@@ -93,6 +94,16 @@ const router = createRouter({
       },
     },
   ],
+})
+
+router.beforeEach((to, from) => {
+  const user = useUserStore() // 获取全局用户状态
+  if (to.meta.needLogin && !user.isLogin()) {
+    return { // 如果需要登录，但是用户没有登录，则跳转到登录页面
+      name: 'user-account-login-index'
+    } 
+  } 
+  return true // 如果不需要登录，或者用户已经登录，则继续访问当前页面
 })
 
 export default router
