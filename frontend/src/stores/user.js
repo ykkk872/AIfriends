@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', () => {
     const photo = ref('')
     const profile = ref('')
     const accessToken = ref('')
-    const hasPulledUserInfo = ref(false)
+    const hasPulledUserInfo = ref(false) // 是否已经拉取过用户信息
 
     function isLogin() { // 判断是否登陆
         return !!accessToken.value  // 必须带value!!!!!!!!!
@@ -34,7 +34,7 @@ export const useUserStore = defineStore('user', () => {
         accessToken.value = ''
     }
 
-    function setHasPulledUserInfo(newStatus) {
+    function setHasPulledUserInfo(newStatus) { // 设置是否已经拉取过用户信息
         hasPulledUserInfo.value = newStatus
     }
 
@@ -48,7 +48,7 @@ export const useUserStore = defineStore('user', () => {
         setAccessToken,
         setUserInfo,
         logout,
-        hasPulledUserInfo,
+        hasPulledUserInfo, // 是否已经拉取过用户信息
         setHasPulledUserInfo,
     }
 })
