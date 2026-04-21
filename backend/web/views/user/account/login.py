@@ -32,7 +32,7 @@ class LoginView(APIView):
                     value=str(refresh),
                     httponly=True,
                     samesite='Lax',
-                    secure=True,
+                    secure=False, # 开发环境用 HTTP，必须设为 False；生产环境（HTTPS）改回 True
                     max_age=86400 * 7, # refresh token 7天有效期
                 )
                 return response

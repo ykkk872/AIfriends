@@ -6,7 +6,7 @@ from django.conf import settings
 class refreshTokenView(APIView):
     def post(self, request, *args, **kwargs):
         try:
-            refresh_token = request.cookies.get("refresh_token")
+            refresh_token = request.COOKIES.get("refresh_token")
             if not refresh_token: # 如果refresh token为空字符串，返回错误信息
                 return Response({
                     'result': 'refresh token 不存在',
@@ -23,10 +23,10 @@ class refreshTokenView(APIView):
                     value=str(refresh),
                     httponly=True,
                     samesite='Lax',
-                    secure=True,
+                    secure=False, # 开发环境用 HTTP，必须设为 False；生产环境（HTTPS）改回 True
                     max_age=86400 * 7, # refresh token 7天有效期
                 )
-                return 
+                return response
             return Response({ # 如果没配置ROTATE_REFRESH_TOKENS且没过期(RefreshToken未抛出异常)，则直接返回access token
                 'result': 'success',
                 'access': str(refresh.access_token),
